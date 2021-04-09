@@ -78,6 +78,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+
       this.role = resJson.data.role;
       console.log(this.role);
     },
