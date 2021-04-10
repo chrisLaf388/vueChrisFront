@@ -14,7 +14,7 @@
                 <input
                   type="text"
                   class="form-control inlineFormInputGroup"
-                  id="login"
+                  ref="login"
                   placeholder="Your login"
                 />
               </div>
@@ -29,7 +29,7 @@
                 <input
                   type="password"
                   class="form-control mb-3 inlineFormInputGroup"
-                  id="password"
+                  ref="password"
                   placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 />
               </div>
@@ -64,8 +64,8 @@ export default {
   },
   methods: {
     listeApi: async function () {
-      const login = document.querySelector("#login").value;
-      const password = document.querySelector("#password").value;
+      const login = this.$refs.login.value;
+      const password = this.$refs.password.value;
       const credential = window.btoa(login + ":" + password);
 
       const resJson = await axios
