@@ -1,17 +1,18 @@
 <template>
   <Header></Header>
-  <Login></Login>
+  <ListeRapport></ListeRapport>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import Login from "./components/Login.vue";
-
+//import Login from "./components/Login.vue";
+import ListeRapport from "./components/rapportVisiteurListe"
 export default {
   name: "App",
   components: {
     Header,
-    Login,
+    ListeRapport,
+    //Login,
   },
 };
 </script>
