@@ -12,9 +12,23 @@
                             <p class="text-white">Bilan</p>
                         </div>
                         <div>
-                            <ul id="rapports" class="p-0 m-0">
-                               <li v-for="item in info" :key="item.id">           
-                                    {{item.id}}
+                            <ul id="rapports" class="p-0 m-0">                               
+                                <li v-for="item in info" :key="item.id">
+                                    <div class="card rapports${rapport.id}">
+                                        <div class="card-body d-flex justify-content-between py-0 px-1">
+                                            <div class="conteneurInfos py-1 px-0">
+                                                <div class="infos infos${rapport.id} d-flex justify-content-between">
+                                                    <span>{{item.date}}</span>
+                                                    <span>{{item.motif}}...</span>
+                                                    <span>{{item.bilan}}...</span>
+                                                </div>
+                                            </div>
+                                            <div class="boutons d_flex justify-content-end py-1 px-0">    
+                                                <button class="modifier modifierRapport${rapport.id} mr-2 text-primary bg-white"><i class="fas fa-pen"></i></button>
+                                                <button class="supprimer supprimerRapport${rapport.id} text-danger bg-white"><i class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -49,7 +63,7 @@ export default {
          const dataJson = await axios.get("http://localhost:3002/gsb/rapport", {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Basic " + window.btoa("Coco3:Coucou3_13"),
+                Authorization: "Basic " + window.btoa("Coco3:coucou3"),
             },
             })
             .catch((e) => {
