@@ -41,6 +41,7 @@
                 class="btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
                 v-on:click.prevent="listeApi()"
               >
+                <!-- <router-link to="/rapportsVisiteur">Bla</router-link> -->
                 Se connecter
               </button>
             </div>
