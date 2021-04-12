@@ -80,7 +80,7 @@ export default {
             "Content-Type": "application/json",
             Authorization: "Basic " + credential,
           },
-          credentials: "include",
+          withCredentials: true,
         })
         .then((response) => {
           this.role = response.data.role;

@@ -84,7 +84,7 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include",
+          withCredentials: true,
         })
         .catch((e) => {
           console.log(e);

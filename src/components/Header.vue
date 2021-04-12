@@ -3,10 +3,12 @@
     class="d-flex justify-content-between align-items-center p-2 bg-white"
   >
     <img src="../assets/img/logo-gsb.png" id="logo" alt="logo" />
-    <div class="d-flex justify-content-end align-items-center" id="connexion">
-      <div class="fs-5 mr-5 text-primary" id="pseudo" v-if="user">
-        Bonjour, {{ user }}
-      </div>
+    <div
+      class="d-flex justify-content-end align-items-center"
+      id="connexion"
+      v-if="user"
+    >
+      <div class="fs-5 mr-5 text-primary" id="pseudo">Bonjour, {{ user }}</div>
       <i id="deconnexion" class="fas fa-power-off fs-5 text-primary"></i>
     </div>
   </header>
