@@ -1,5 +1,5 @@
 <template>
-  <Header></Header>
+  <Header v-bind:user="user"></Header>
   <router-view></router-view>
 </template>
 
@@ -9,6 +9,14 @@ export default {
   name: "App",
   components: {
     Header,
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  mounted() {
+    this.user = localStorage.getItem("username");
   },
 };
 </script>

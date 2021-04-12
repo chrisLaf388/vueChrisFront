@@ -83,8 +83,8 @@ export default {
         .get("http://localhost:3002/gsb/rapport", {
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Basic " + window.btoa("Coco3:Coucou3_13"),
           },
+          credentials: "include",
         })
         .catch((e) => {
           console.log(e);
@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 main {
   width: 100%;
   height: 90vh;

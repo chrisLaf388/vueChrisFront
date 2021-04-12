@@ -4,7 +4,9 @@
   >
     <img src="../assets/img/logo-gsb.png" id="logo" alt="logo" />
     <div class="d-flex justify-content-end align-items-center" id="connexion">
-      <div class="fs-5 mr-5 text-primary" id="pseudo" v-if="false">Pseudo</div>
+      <div class="fs-5 mr-5 text-primary" id="pseudo" v-if="user">
+        Bonjour, {{ user }}
+      </div>
       <i id="deconnexion" class="fas fa-power-off fs-5 text-primary"></i>
     </div>
   </header>
@@ -13,6 +15,7 @@
 <script>
 export default {
   name: "Header",
+  props: ["user"],
 };
 </script>
 

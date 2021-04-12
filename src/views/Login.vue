@@ -5,7 +5,10 @@
         <div class="col-4"></div>
         <div class="col-4 login-form-1 center px-5 py-4">
           <h3 class="text-center text-white mb-5">Merci de vous connecter.</h3>
-          <form>
+          <div class="alert alert-danger" v-if="error">
+            {{ error }}
+          </div>
+          <form @submit.prevent="loginRequest">
             <div class="form-group">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
@@ -14,8 +17,9 @@
                 <input
                   type="text"
                   class="form-control inlineFormInputGroup"
-                  ref="login"
+                  id="login"
                   placeholder="Your login"
+                  v-model="login"
                 />
               </div>
             </div>
@@ -29,8 +33,9 @@
                 <input
                   type="password"
                   class="form-control mb-3 inlineFormInputGroup"
-                  ref="password"
+                  id="password"
                   placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                  v-model="password"
                 />
               </div>
             </div>
@@ -38,11 +43,10 @@
               <button
                 type="submit"
                 id="connexion"
-                class="btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
-                v-on:click.prevent="listeApi()"
+                class="btn btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
               >
-                <!-- <router-link to="/rapportsVisiteur">Bla</router-link> -->
                 Se connecter
+                <!-- <router-link to="/rapportsVisiteur">Se connecter</router-link> -->
               </button>
             </div>
           </form>
@@ -61,33 +65,45 @@ export default {
   data() {
     return {
       role: "",
+      login: "",
+      password: "",
+      error: null,
     };
   },
   methods: {
-    listeApi: async function () {
-      const login = this.$refs.login.value;
-      const password = this.$refs.password.value;
-      const credential = window.btoa(login + ":" + password);
+    loginRequest: async function () {
+      const credential = window.btoa(this.login + ":" + this.password);
 
-      const resJson = await axios
+      await axios
         .get("http://localhost:3002/gsb/login", {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Basic " + credential,
           },
+          credentials: "include",
+        })
+        .then((response) => {
+          this.role = response.data.role;
+          console.log(this.role);
+          this.$router.push("/rapportsVisiteur");
+          localStorage.setItem("username", this.login);
+          console.log("user connecté");
+          return response;
         })
         .catch((e) => {
-          console.log(e);
+          if (e.response.status === 401) {
+            this.error = "Bad login or password";
+            console.log("Unauthorized");
+          } else {
+            console.log(e);
+          }
         });
-
-      this.role = resJson.data.role;
-      console.log(this.role);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 main {
   width: 80%;
   height: 90vh;
