@@ -6,7 +6,7 @@
 <script>
 import Header from "./components/Header.vue";
 //import Login from "./components/Login.vue";
-import ListeRapport from "./components/rapportVisiteurListe"
+import ListeRapport from "./components/RapportVisiteurListe";
 export default {
   name: "App",
   components: {
