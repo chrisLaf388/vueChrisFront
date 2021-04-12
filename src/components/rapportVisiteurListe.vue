@@ -63,7 +63,7 @@ export default {
          const dataJson = await axios.get("http://localhost:3002/gsb/rapport", {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Basic " + window.btoa("Coco3:coucou3"),
+                Authorization: "Basic " + window.btoa("Coco3:Coucou3_13"),
             },
             })
             .catch((e) => {
