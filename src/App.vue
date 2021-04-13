@@ -1,6 +1,6 @@
 <template>
   <Header v-bind:user="user"></Header>
-  <router-view></router-view>
+  <router-view v-bind:user="user"></router-view>
 </template>
 
 <script>

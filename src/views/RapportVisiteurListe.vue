@@ -44,18 +44,9 @@
                 </li>
               </ul>
             </div>
-            <div class="form-group d-flex justify-content-evenly mt-4">
-              <button
-                id="creer"
-                class="d-block rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
-              >
-                Créer un rapport
-              </button>
-              <select
-                name="idRapport"
-                id="idRapport"
-                class="border-white rounded-pill bg-transparent text-white fs-6"
-              >
+            <div class="form-group d-flex justify-content-evenly mt-4">          
+              <router-link class="btn d-block rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5" to="/creerRapport">Créer un rapport</router-link>              
+              <select name="idRapport" id="idRapport"  class="border-white rounded-pill bg-transparent text-white fs-6">
                 <option value="">--Sélectionnez un rapport--</option>
               </select>
             </div>
@@ -72,15 +63,20 @@ import axios from "axios";
 
 export default {
   name: "ListeRapport",
+  props: ["user"],
+  
   data() {
     return {
       info: null,
+      
     };
   },
   methods: {
     listeRapport: async function () {
+      //recupérer login via localStorage pour afficher la liste des rapports lié aux visiteurs
+      
       const dataJson = await axios
-        .get("http://localhost:3002/gsb/rapport", {
+        .get("http://localhost:3002/gsb/visiteur/"+this.user+"/rapport", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -93,8 +89,23 @@ export default {
       this.info = dataJson.data;
       console.log(this.info);
     },
+    // rapportFicheSelectionnee: async function(){
+    //   const dataJson = await axios
+    //     .get("http://localhost:3002/gsb/visiteur/"+user+"/rapport", {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       withCredentials: true,
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     })
+    //     .then((response) => (this.info = response));
+    //   this.info = dataJson.data;
+    //   console.log(this.info);
+    // }
   },
-  mounted() {
+  mounted() { 
     this.listeRapport();
   },
 };
