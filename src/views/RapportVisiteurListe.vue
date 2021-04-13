@@ -14,13 +14,14 @@
             <div>
               <ul id="rapports" class="p-0 m-0">
                 <li v-for="item in info" :key="item.id">
-                  <div class="card rapports${rapport.id} mb-1">
+                  <div class="card mb-1">
                     <div
                       class="card-body d-flex justify-content-between py-0 px-1"
                     >
                       <div class="conteneurInfos py-1 px-0">
                         <div
-                          class="infos infos${rapport.id} d-flex justify-content-between"
+                          class="infos d-flex justify-content-between"
+                          @click="ficheRapport(item.id)"
                         >
                           <span>{{ item.date }}</span>
                           <span>{{ item.motif }}...</span>
@@ -29,12 +30,14 @@
                       </div>
                       <div class="boutons d_flex justify-content-end py-1 px-0">
                         <button
-                          class="modifier modifierRapport${rapport.id} mr-2 text-primary bg-white border-0"
+                          class="mr-2 text-primary bg-white border-0"
+                          @click="ficheModifier(item.id)"
                         >
                           <i class="fas fa-pen"></i>
                         </button>
                         <button
-                          class="supprimer supprimerRapport${rapport.id} text-danger bg-white border-0"
+                          class="text-danger bg-white border-0"
+                          @click="supprimer(item.id)"
                         >
                           <i class="fas fa-trash-alt"></i>
                         </button>
@@ -44,9 +47,17 @@
                 </li>
               </ul>
             </div>
-            <div class="form-group d-flex justify-content-evenly mt-4">          
-              <router-link class="btn d-block rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5" to="/creerRapport">Créer un rapport</router-link>              
-              <select name="idRapport" id="idRapport"  class="border-white rounded-pill bg-transparent text-white fs-6">
+            <div class="form-group d-flex justify-content-evenly mt-4">
+              <router-link
+                class="btn d-block rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
+                to="/creerRapport"
+                >Créer un rapport</router-link
+              >
+              <select
+                name="idRapport"
+                id="idRapport"
+                class="border-white rounded-pill bg-transparent text-white fs-6"
+              >
                 <option value="">--Sélectionnez un rapport--</option>
               </select>
             </div>
@@ -64,19 +75,18 @@ import axios from "axios";
 export default {
   name: "ListeRapport",
   props: ["user"],
-  
+
   data() {
     return {
       info: null,
-      
     };
   },
   methods: {
     listeRapport: async function () {
       //recupérer login via localStorage pour afficher la liste des rapports lié aux visiteurs
-      
+
       const dataJson = await axios
-        .get("http://localhost:3002/gsb/visiteur/"+this.user+"/rapport", {
+        .get("http://localhost:3002/gsb/visiteur/" + this.user + "/rapport", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -89,23 +99,25 @@ export default {
       this.info = dataJson.data;
       console.log(this.info);
     },
-    // rapportFicheSelectionnee: async function(){
-    //   const dataJson = await axios
-    //     .get("http://localhost:3002/gsb/visiteur/"+user+"/rapport", {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       withCredentials: true,
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     })
-    //     .then((response) => (this.info = response));
-    //   this.info = dataJson.data;
-    //   console.log(this.info);
-    // }
+    ficheRapport: function (id) {
+      localStorage.setItem("rapportId", id);
+      this.$router.push("/ficheRapportVuParVisiteur");
+    },
+    ficheModifier: function (id) {
+      localStorage.setItem("rapportId", id);
+      this.$router.push("/modifierRapport");
+    },
+    supprimer: async function (id) {
+      if (confirm("Voulez-vous vraiment supprimer ce rapport?")) {
+        await axios("http://localhost:3002/gsb/rapport/" + id, {
+          method: "DELETE",
+          withCredentials: true,
+        });
+        window.location.reload();
+      }
+    },
   },
-  mounted() { 
+  mounted() {
     this.listeRapport();
   },
 };

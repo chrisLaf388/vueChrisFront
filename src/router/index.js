@@ -1,7 +1,8 @@
+import CreerRapport from "@/views/CreerRapport.vue";
+import FicheRapportVuParVisiteur from "@/views/FicheRapportVuParVisiteur.vue";
 import Login from "@/views/Login.vue";
+import ModifierRapport from "@/views/ModifierRapport.vue";
 import RapportsVisiteur from "@/views/RapportVisiteurListe.vue";
-import creerRapport from "@/views/CreerRapport.vue"
-import rapportVuParVisiteur from "@/views/RapportVuParVisiteur.vue"
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -17,13 +18,17 @@ const routes = [
   },
   {
     path: "/creerRapport",
-    name: "creerRapport",
-    component: creerRapport,
+    name: "CreerRapport",
+    component: CreerRapport,
   },
   {
-    path: "/rapportVuParVisiteur",
-    name: "rapportVuParVisiteur",
-    component: rapportVuParVisiteur,
+    path: "/ficheRapportVuParVisiteur",
+    name: "FicheRapportVuParVisiteur",
+    component: FicheRapportVuParVisiteur,
+  },{
+    path: "/modifierRapport",
+    name: "modifierRapport",
+    component: ModifierRapport,
   },
 ];
 
