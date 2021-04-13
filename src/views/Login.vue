@@ -12,7 +12,7 @@
             <div class="form-group">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">@</div>
+                  <div class="input-group-text"><i class="fas fa-user-circle mt-1 mb-1"></i></div>
                 </div>
                 <input
                   type="text"
@@ -43,8 +43,7 @@
               <button
                 type="submit"
                 id="connexion"
-                class="btn btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
-              >
+                class="btn btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5">
                 Se connecter
                 <!-- <router-link to="/rapportsVisiteur">Se connecter</router-link> -->
               </button>
@@ -82,8 +81,7 @@ export default {
           },
           withCredentials: true,
         })
-        .then((response) => {
-          console.log(response);
+        .then((response) => {         
           this.role = response.data.role;
           console.log(this.role);
           this.$router.push("/rapportsVisiteur");
