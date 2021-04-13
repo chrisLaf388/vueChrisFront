@@ -9,15 +9,36 @@
       v-if="user"
     >
       <div class="fs-5 mr-5 text-primary" id="pseudo">Bonjour, {{ user }}</div>
-      <i id="deconnexion" class="fas fa-power-off fs-5 text-primary"></i>
+      <i
+        id="deconnexion"
+        class="fas fa-power-off fs-5 text-primary"
+        @click="logout"
+      ></i>
     </div>
   </header>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Header",
   props: ["user"],
+  methods: {
+    logout: async function () {
+      await axios
+        .get("http://localhost:3002/gsb/logout", {
+          withCredentials: true,
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .then(() => {
+          localStorage.clear();
+          this.$router.push("/");
+        });
+    },
+  },
 };
 </script>
 

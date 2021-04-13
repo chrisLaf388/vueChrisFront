@@ -83,6 +83,7 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
+          console.log(response);
           this.role = response.data.role;
           console.log(this.role);
           this.$router.push("/rapportsVisiteur");
