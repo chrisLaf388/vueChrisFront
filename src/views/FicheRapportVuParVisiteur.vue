@@ -20,12 +20,14 @@
             <button
               id="modifier"
               class="d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
+              @click="rediriger()"
             >
               Modifier
             </button>
             <button
               id="supprimer"
               class="d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5"
+              @click="supprimer(rapportId)"
             >
               Supprimer
             </button>
@@ -47,6 +49,7 @@ export default {
       bilan: "",
       motif: "",
       date: "",
+      rapportId: localStorage.getItem("rapportId"),
     };
   },
   methods: {
@@ -63,11 +66,22 @@ export default {
           console.log(e);
         })
         .then((response) => {
-          console.log(response);
           this.bilan = response.data.bilan;
           this.motif = response.data.motif;
           this.date = response.data.date;
         });
+    },
+    rediriger: function () {
+      this.$router.push("/modifierRapport");
+    },
+    supprimer: async function (id) {
+      if (confirm("Voulez-vous vraiment supprimer ce rapport?")) {
+        await axios("http://localhost:3002/gsb/rapport/" + id, {
+          method: "DELETE",
+          withCredentials: true,
+        });
+        this.$router.push("/rapportsVisiteur");
+      }
     },
   },
   mounted() {

@@ -57,8 +57,19 @@
                 name="idRapport"
                 id="idRapport"
                 class="border-white rounded-pill bg-transparent text-white fs-6"
+                @change="getFicheRapport($event)"
               >
-                <option value="">--Sélectionnez un rapport--</option>
+                <option value="" class="text-dark">
+                  --Sélectionnez un rapport--
+                </option>
+                <option
+                  class="text-dark"
+                  v-for="item in info"
+                  :key="item"
+                  v-bind:value="item.id"
+                >
+                  {{ item.date }} - {{ item.bilan.substring(0, 20) + "..." }}
+                </option>
               </select>
             </div>
           </div>
@@ -97,7 +108,6 @@ export default {
         })
         .then((response) => (this.info = response));
       this.info = dataJson.data;
-      console.log(this.info);
     },
     ficheRapport: function (id) {
       localStorage.setItem("rapportId", id);
@@ -115,6 +125,11 @@ export default {
         });
         window.location.reload();
       }
+    },
+    getFicheRapport: function (e) {
+      let value = e.target.value;
+      localStorage.setItem("rapportId", value);
+      this.$router.push("/ficheRapportVuParVisiteur");
     },
   },
   mounted() {

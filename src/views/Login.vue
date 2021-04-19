@@ -85,10 +85,19 @@ export default {
         })
         .then((response) => {
           this.role = response.data.role;
-          console.log(this.role);
-          this.$router.push("/rapportsVisiteur");
+          localStorage.setItem("role", this.role);
           localStorage.setItem("username", this.login);
-          console.log("user connecté");
+          switch (this.role) {
+            case "VIS":
+              this.$router.push("/rapportsVisiteur");
+              break;
+            case "RC":
+              this.$router.push("/rapportsVisiteur");
+              break;
+            case "RH":
+              this.$router.push("/rapportsVisiteur");
+              break;
+          }
           return response;
         })
         .catch((e) => {

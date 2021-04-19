@@ -2,7 +2,12 @@
   <header
     class="d-flex justify-content-between align-items-center p-2 bg-white"
   >
-    <img src="../assets/img/logo-gsb.png" id="logo" alt="logo" />
+    <img
+      src="../assets/img/logo-gsb.png"
+      id="logo"
+      alt="logo"
+      @click="rediriger"
+    />
     <div
       class="d-flex justify-content-end align-items-center"
       id="connexion"
@@ -38,10 +43,21 @@ export default {
           this.$router.push("/");
         });
     },
+    rediriger: function () {
+      switch (localStorage.getItem("role")) {
+        case "VIS":
+          this.$router.push("/rapportsVisiteur");
+          break;
+        case "RC":
+          this.$router.push("/rapportsVisiteur");
+          break;
+        case "RH":
+          this.$router.push("/rapportsVisiteur");
+          break;
+      }
+    },
   },
 };
-
-
 </script>
 
 <style scoped>

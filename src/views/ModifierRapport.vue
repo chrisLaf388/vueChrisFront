@@ -38,13 +38,13 @@
               >
                 Valider
               </button>
-              <button
-                type="submit"
+              <router-link
                 id="annuler"
-                class="btnSubmit d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5"
+                class="btn d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5"
+                to="/ficheRapportVuParVisiteur"
               >
                 Annuler
-              </button>
+              </router-link>
             </div>
           </form>
         </div>
@@ -67,7 +67,7 @@ export default {
 
   methods: {
     modifierRapportRequest: async function () {
-      let res = await axios(
+      await axios(
         "http://localhost:3002/gsb/rapport/" +
           localStorage.getItem("rapportId"),
         {
@@ -82,9 +82,11 @@ export default {
           },
         }
       );
-      let data = res.data;
-      console.log(data);
+      this.$router.push("/ficheRapportVuParVisiteur");
     },
+  },
+  rediriger: function () {
+    this.$router.push("/ficheRapportVuParVisiteur");
   },
 };
 </script>
