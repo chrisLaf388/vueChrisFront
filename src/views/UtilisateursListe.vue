@@ -4,29 +4,64 @@
       <div class="row">
         <div class="col-12 login-form-1 center px-0 py-0">
           <ul class="nav nav-tabs">
-            <li class="nav-item">
-              <a
-                class="nav-link text-white"
+            <li
+              class="nav-item"
+              :class="{ active: visiteurActive, inactive: !visiteurActive }"
+            >
+              <div
+                class="nav-link d-flex justify-content-between"
                 @click="listeUtilisateurs('visiteur')"
-                :class="{ active: visiteurActive }"
-                >Visiteurs</a
               >
+                <p class="m-0 d-flex align-items-center">Visiteurs</p>
+                <button class="btn">
+                  <i
+                    class="fas fa-plus"
+                    :class="{
+                      active: visiteurActive,
+                      inactive: !visiteurActive,
+                    }"
+                    @click="createUtilisateur('visiteur')"
+                  ></i>
+                </button>
+              </div>
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link text-white"
+            <li
+              class="nav-item"
+              :class="{ active: rcActive, inactive: !rcActive }"
+            >
+              <div
+                class="nav-link d-flex justify-content-between"
                 @click="listeUtilisateurs('redacteurchercheur')"
-                :class="{ active: rcActive }"
-                >Rédacteurs/Chercheurs</a
               >
+                <p class="m-0 d-flex align-items-center">
+                  Rédacteurs/Chercheurs
+                </p>
+                <button class="btn">
+                  <i
+                    class="fas fa-plus"
+                    :class="{ active: rcActive, inactive: !rcActive }"
+                    @click="createUtilisateur('redacteurchercheur')"
+                  ></i>
+                </button>
+              </div>
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link text-white"
+            <li
+              class="nav-item"
+              :class="{ active: rhActive, inactive: !rhActive }"
+            >
+              <div
+                class="nav-link d-flex justify-content-between"
                 @click="listeUtilisateurs('rh')"
-                :class="{ active: rhActive }"
-                >Ressources humaines</a
               >
+                <p class="m-0 d-flex align-items-center">Ressources humaines</p>
+                <button class="btn">
+                  <i
+                    class="fas fa-plus"
+                    :class="{ active: rhActive, inactive: !rhActive }"
+                    @click="createUtilisateur('rh')"
+                  ></i>
+                </button>
+              </div>
             </li>
           </ul>
           <div id="content">
@@ -48,7 +83,12 @@
                       class="card-body d-flex justify-content-between py-0 px-1"
                     >
                       <div class="conteneurInfos py-1 px-0">
-                        <div class="infos d-flex justify-content-between">
+                        <div
+                          class="infos d-flex justify-content-between"
+                          @click="
+                            ficheUtilisateur(utilisateur.login, getRoute())
+                          "
+                        >
                           <span
                             >{{ utilisateur.nom }}
                             {{ utilisateur.prenom }}</span
@@ -78,11 +118,6 @@
               </ul>
             </div>
             <div class="form-group d-flex justify-content-evenly mt-4">
-              <router-link
-                class="btn d-block rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
-                to="/creerRapport"
-                >Créer un utilisateur</router-link
-              >
               <select
                 name="idRapport"
                 id="idRapport"
@@ -170,9 +205,17 @@ export default {
       }
       return route;
     },
-    ficheUtilisateur: function (id) {
-      localStorage.setItem("rapportId", id);
+    ficheUtilisateur: function (id, route) {
+      localStorage.setItem("utilisateurId", id);
+      localStorage.setItem("route", route);
+      localStorage.setItem("vis", this.visiteurActive);
+      localStorage.setItem("rh", this.rhActive);
+      localStorage.setItem("rc", this.rcActive);
       this.$router.push("/ficheUtilisateur");
+    },
+    createUtilisateur: function (route) {
+      localStorage.setItem("route", route);
+      this.$router.push("/creerUtilisateur");
     },
     ficheModifier: function (id) {
       localStorage.setItem("rapportId", id);
@@ -189,7 +232,7 @@ export default {
     },
     getFicheRapport: function (e) {
       let value = e.target.value;
-      localStorage.setItem("rapportId", value);
+      localStorage.setItem("utilisateurId", value);
       this.$router.push("/ficheRapportVuParVisiteur");
     },
   },
@@ -206,9 +249,12 @@ main {
 }
 
 .active {
-  color: black !important;
+  color: black;
   background-color: white;
-  cursor: none;
+}
+
+.inactive {
+  color: white;
 }
 
 .login-form-1 {
@@ -218,7 +264,7 @@ main {
 
 #labels {
   font-weight: bold;
-  width: 54%;
+  width: 52%;
 }
 
 li {
@@ -249,8 +295,11 @@ span {
   width: 10%;
 }
 
-button,
-select {
-  width: 30%;
+button {
+  width: fit-content;
+}
+
+i {
+  cursor: pointer;
 }
 </style>

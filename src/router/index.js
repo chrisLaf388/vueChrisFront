@@ -1,5 +1,7 @@
 import CreerRapport from "@/views/CreerRapport.vue";
+import CreerUtilisateur from "@/views/CreerUtilisateur.vue";
 import FicheRapportVuParVisiteur from "@/views/FicheRapportVuParVisiteur.vue";
+import FicheUtilisateur from "@/views/FicheUtilisateur.vue";
 import Login from "@/views/Login.vue";
 import ModifierRapport from "@/views/ModifierRapport.vue";
 import RapportRedacteurFiche from "@/views/RapportRedacteurFiche.vue";
@@ -48,6 +50,16 @@ const routes = [
     path: "/utilisateurs",
     name: "Utilisateurs",
     component: ListeUtilisateurs,
+  },
+  {
+    path: "/ficheUtilisateur",
+    name: "FicheUtilisateur",
+    component: FicheUtilisateur,
+  },
+  {
+    path: "/creerUtilisateur",
+    name: "CreerUtilisateur",
+    component: CreerUtilisateur,
   },
 ];
 

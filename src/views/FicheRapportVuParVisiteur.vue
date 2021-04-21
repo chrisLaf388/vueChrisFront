@@ -16,7 +16,7 @@
               Bilan: <span id="bilan"> {{ bilan }} </span>
             </p>
           </div>
-          <div class="form-group d-flex mt-4">
+          <div class="form-group d-flex mt-4 justify-content-around">
             <button
               id="modifier"
               class="d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5"
@@ -94,6 +94,10 @@ export default {
 main {
   width: 80%;
   height: 90vh;
+}
+
+button {
+  width: 49%;
 }
 
 .login-form-1 {
