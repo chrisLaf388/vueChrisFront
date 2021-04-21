@@ -34,27 +34,27 @@
                         </div>
                         <div class="form-group d-flex justify-content-evenly mt-4">
                             <div id="search">
-                                <input type="search" name="motCle" id="motCle" placeholder="Mot clé">
-                                <i id="iconeRechercher" class="fas fa-search text-white"></i>
+                                <input v-model="motCle" type="search" name="motCle" id="motCle" placeholder="Mot clé">
+                                <i @click="rechercheMot" id="iconeRechercher" class="fas fa-search text-white"></i>
                             </div>
                             <select
-                name="idRapport"
-                id="idRapport"
-                class="border-white rounded-pill bg-transparent text-white fs-6"
-                @change="getFicheRapport($event)"
-              >
-                <option value="" class="text-dark">
-                  --Sélectionnez un rapport--
-                </option>
-                <option
-                  class="text-dark"
-                  v-for="item in info"
-                  :key="item"
-                  v-bind:value="item.id"
-                >
-                  {{ item.date }} - {{ item.bilan.substring(0, 20) + "..." }}
-                </option>
-              </select>
+                            name="idRapport"
+                            id="idRapport"
+                            class="border-white rounded-pill bg-transparent text-white fs-6"
+                            @change="getFicheRapport($event)"
+                            >
+                                <option value="" class="text-dark">
+                                --Sélectionnez un rapport--
+                                </option>
+                                <option
+                                class="text-dark"
+                                v-for="item in info"
+                                :key="item"
+                                v-bind:value="item.id"
+                                >
+                                {{ item.date }} - {{ item.bilan.substring(0, 20) + "..." }}
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>
