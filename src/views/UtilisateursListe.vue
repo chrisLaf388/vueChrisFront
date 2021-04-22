@@ -160,20 +160,18 @@ export default {
     };
   },
   methods: {
-    listeUtilisateurs: async function (route) {
-      await axios
-        .get("http://localhost:3002/gsb/" + route, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-        .then((response) => {
-          this.utilisateurs = response.data;
-        });
+    getRoute: function () {
+      let route = "";
+      if (this.rcActive) {
+        route = "redacteurchercheur";
+      } else if (this.rhActive) {
+        route = "rh";
+      } else if (this.visiteurActive) {
+        route = "visiteur";
+      }
+      return route;
+    },
+    getActive: function (route) {
       switch (route) {
         case "visiteur":
           this.visiteurActive = true;
@@ -193,27 +191,33 @@ export default {
           this.rhActive = true;
           break;
       }
+      localStorage.setItem("vis", this.visiteurActive);
+      localStorage.setItem("rh", this.rhActive);
+      localStorage.setItem("rc", this.rcActive);
     },
-    getRoute: function () {
-      let route = "";
-      if (this.rcActive) {
-        route = "redacteurchercheur";
-      } else if (this.rhActive) {
-        route = "rh";
-      } else if (this.visiteurActive) {
-        route = "visiteur";
-      }
-      return route;
+    listeUtilisateurs: async function (route) {
+      this.getActive(route);
+      await axios
+        .get("http://localhost:3002/gsb/" + route, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .then((response) => {
+          this.utilisateurs = response.data;
+        });
     },
     ficheUtilisateur: function (id, route) {
       localStorage.setItem("utilisateurId", id);
       localStorage.setItem("route", route);
-      localStorage.setItem("vis", this.visiteurActive);
-      localStorage.setItem("rh", this.rhActive);
-      localStorage.setItem("rc", this.rcActive);
       this.$router.push("/ficheUtilisateur");
     },
     createUtilisateur: function (route) {
+      this.getActive();
       localStorage.setItem("route", route);
       this.$router.push("/creerUtilisateur");
     },

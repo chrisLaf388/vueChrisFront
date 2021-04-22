@@ -49,10 +49,10 @@ export default {
           this.$router.push("/rapportsVisiteur");
           break;
         case "RC":
-          this.$router.push("/rapportsVisiteur");
+          this.$router.push("/rapportRedacteurListe");
           break;
         case "RH":
-          this.$router.push("/rapportsVisiteur");
+          this.$router.push("/utilisateurs");
           break;
       }
     },

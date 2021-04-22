@@ -37,12 +37,12 @@ const routes = [
     component: ModifierRapport,
   },
   {
-    path: "/RapportRedacteurListe",
+    path: "/rapportRedacteurListe",
     name: "RapportRedacteurListe",
     component: RapportRedacteurListe,
   },
   {
-    path: "/RapportRedacteurFiche",
+    path: "/rapportRedacteurFiche",
     name: "RapportRedacteurFiche",
     component: RapportRedacteurFiche,
   },

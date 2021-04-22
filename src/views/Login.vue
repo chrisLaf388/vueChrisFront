@@ -92,7 +92,7 @@ export default {
               this.$router.push("/rapportsVisiteur");
               break;
             case "RC":
-              this.$router.push("/RapportRedacteurListe");
+              this.$router.push("/rapportRedacteurListe");
               break;
             case "RH":
               this.$router.push("/utilisateurs");

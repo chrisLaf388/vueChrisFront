@@ -14,6 +14,7 @@
                   name="login"
                   id="login"
                   placeholder="Login"
+                  v-model="login"
                 />
               </p>
               <p class="col-6 d-flex flex-column">
@@ -23,13 +24,20 @@
                   name="mdp"
                   id="mdp"
                   placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+                  v-model="password"
                 />
               </p>
             </div>
             <div class="form-group row">
               <p class="col-6 d-flex flex-column">
                 <label class="text-white">Nom:</label>
-                <input type="text" name="nom" id="nom" placeholder="Nom" />
+                <input
+                  type="text"
+                  name="nom"
+                  id="nom"
+                  placeholder="Nom"
+                  v-model="nom"
+                />
               </p>
               <p class="col-6 d-flex flex-column">
                 <label class="text-white">Prénom:</label>
@@ -38,6 +46,7 @@
                   name="prenom"
                   id="prenom"
                   placeholder="Prénom"
+                  v-model="prenom"
                 />
               </p>
             </div>
@@ -50,6 +59,7 @@
                   name="adresse"
                   id="adresse"
                   placeholder="Adresse"
+                  v-model="adresse"
                 />
               </p>
             </div>
@@ -61,6 +71,7 @@
                   name="CP"
                   id="CP"
                   placeholder="Code Postal"
+                  v-model="codePostal"
                 />
               </p>
               <p class="col-6 d-flex flex-column">
@@ -70,6 +81,7 @@
                   name="ville"
                   id="ville"
                   placeholder="Ville"
+                  v-model="ville"
                 />
               </p>
             </div>
@@ -81,6 +93,7 @@
                   name="date"
                   id="dateNaissance"
                   placeholder="Date de naissance"
+                  v-model="dateNaissance"
                 />
               </p>
             </div>
@@ -96,6 +109,7 @@
                 type="submit"
                 id="annuler"
                 class="btnSubmit d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5"
+                @click="annuler()"
               >
                 Annuler
               </button>
@@ -116,28 +130,99 @@ export default {
   data() {
     return {
       login: "",
+      password: "",
       nom: "",
+      prenom: "",
+      adresse: "",
+      codePostal: "",
+      ville: "",
+      dateNaissance: "",
     };
   },
   methods: {
     creerUtilisateur: async function () {
-      let res = await axios(
-        "http://localhost:3002/gsb/" + localStorage.getItem("route"),
-        {
-          method: "POST",
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: {
-            login: this.login,
-            nom: this.nom,
-          },
-        }
-      );
-      let data = res.data;
-      localStorage.setItem("rapportId", data.id);
-      this.$router.push("/ficheRapportVuParVisiteur");
+      switch (localStorage.getItem("route")) {
+        case "visiteur":
+          await axios("http://localhost:3002/gsb/visiteur", {
+            method: "POST",
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              password: this.password,
+              visiteur: {
+                login: this.login,
+                nom: this.nom,
+                prenom: this.prenom,
+                adresse: this.adresse,
+                codePostal: this.codePostal,
+                ville: this.ville,
+                dateNaissance: this.dateNaissance,
+              },
+            },
+          }).then((response) => {
+            let data = response.data;
+            localStorage.setItem("utilisateurId", data.login);
+            this.$router.push("/ficheUtilisateur");
+          });
+          break;
+
+        case "redacteurchercheur":
+          await axios("http://localhost:3002/gsb/redacteurchercheur", {
+            method: "POST",
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              password: this.password,
+              redacteurChercheur: {
+                login: this.login,
+                nom: this.nom,
+                prenom: this.prenom,
+                adresse: this.adresse,
+                codePostal: this.codePostal,
+                ville: this.ville,
+                dateNaissance: this.dateNaissance,
+              },
+            },
+          }).then((response) => {
+            let data = response.data;
+            localStorage.setItem("utilisateurId", data.login);
+            this.$router.push("/ficheUtilisateur");
+          });
+          break;
+
+        case "rh":
+          await axios("http://localhost:3002/gsb/rh", {
+            method: "POST",
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              password: this.password,
+              rh: {
+                login: this.login,
+                nom: this.nom,
+                prenom: this.prenom,
+                adresse: this.adresse,
+                codePostal: this.codePostal,
+                ville: this.ville,
+                dateNaissance: this.dateNaissance,
+              },
+            },
+          }).then((response) => {
+            let data = response.data;
+            localStorage.setItem("utilisateurId", data.login);
+            this.$router.push("/ficheUtilisateur");
+          });
+          break;
+      }
+    },
+    annuler: function () {
+      this.$router.push("/utilisateurs");
     },
   },
 };
