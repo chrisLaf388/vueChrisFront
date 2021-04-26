@@ -11,9 +11,9 @@
     <div
       class="d-flex justify-content-end align-items-center"
       id="connexion"
-      v-if="user"
+      v-if="getLogin !== ''"
     >
-      <div class="fs-5 mr-5 text-primary" id="pseudo">Bonjour, {{ user }}</div>
+      <div class="fs-5 mr-5 text-primary" id="pseudo">Bonjour, {{ getLogin }}</div>
       <i
         id="deconnexion"
         class="fas fa-power-off fs-5 text-primary"
@@ -28,7 +28,6 @@ import axios from "axios";
 
 export default {
   name: "Header",
-  props: ["user"],
   methods: {
     logout: async function () {
       await axios
@@ -57,6 +56,11 @@ export default {
       }
     },
   },
+  computed: {
+    getLogin: function(){
+      return this.$store.getters.getLoginFromStore;
+    }
+  }
 };
 </script>
 

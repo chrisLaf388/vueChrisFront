@@ -86,7 +86,7 @@ export default {
         .then((response) => {
           this.role = response.data.role;
           localStorage.setItem("role", this.role);
-          localStorage.setItem("username", this.login);
+          this.$store.dispatch("setLogin", this.login);
           switch (this.role) {
             case "VIS":
               this.$router.push("/rapportsVisiteur");
