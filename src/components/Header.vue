@@ -11,9 +11,11 @@
     <div
       class="d-flex justify-content-end align-items-center"
       id="connexion"
-      v-if="getLogin !== ''"
+      v-if="getLogin"
     >
-      <div class="fs-5 mr-5 text-primary" id="pseudo">Bonjour, {{ getLogin }}</div>
+      <div class="fs-5 mr-5 text-primary" id="pseudo">
+        Bonjour, {{ getLogin }}
+      </div>
       <i
         id="deconnexion"
         class="fas fa-power-off fs-5 text-primary"
@@ -39,6 +41,7 @@ export default {
         })
         .then(() => {
           localStorage.clear();
+          this.$store.dispatch("setLogin", null);
           this.$router.push("/");
         });
     },
@@ -57,10 +60,10 @@ export default {
     },
   },
   computed: {
-    getLogin: function(){
+    getLogin: function () {
       return this.$store.getters.getLoginFromStore;
-    }
-  }
+    },
+  },
 };
 </script>
 

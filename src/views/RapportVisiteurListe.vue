@@ -97,12 +97,15 @@ export default {
       //recupérer login via localStorage pour afficher la liste des rapports lié aux visiteurs
 
       const dataJson = await axios
-        .get("http://localhost:3002/gsb/visiteur/" + this.user + "/rapport", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        })
+        .get(
+          "http://localhost:3002/gsb/visiteur/" + this.getLogin + "/rapport",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        )
         .catch((e) => {
           console.log(e);
         })
@@ -130,6 +133,11 @@ export default {
       let value = e.target.value;
       localStorage.setItem("rapportId", value);
       this.$router.push("/ficheRapportVuParVisiteur");
+    },
+  },
+  computed: {
+    getLogin: function () {
+      return this.$store.getters.getLoginFromStore;
     },
   },
   mounted() {
