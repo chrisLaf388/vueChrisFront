@@ -6,6 +6,7 @@ import Login from "@/views/Login.vue";
 import ModifierRapport from "@/views/ModifierRapport.vue";
 import RapportRedacteurFiche from "@/views/RapportRedacteurFiche.vue";
 import RapportRedacteurListe from "@/views/RapportRedacteurListe.vue";
+import rapportRedacteurMotCle from "@/views/RapportRedacteurMotCle.vue";
 import RapportsVisiteur from "@/views/RapportVisiteurListe.vue";
 import ListeUtilisateurs from "@/views/UtilisateursListe.vue";
 import { createRouter, createWebHistory } from "vue-router";
@@ -45,6 +46,11 @@ const routes = [
     path: "/rapportRedacteurFiche",
     name: "RapportRedacteurFiche",
     component: RapportRedacteurFiche,
+  },
+  {
+    path: "/rapportRedacteurMotCle",
+    name: "rapportRedacteurMotCle",
+    component: rapportRedacteurMotCle,
   },
   {
     path: "/utilisateurs",

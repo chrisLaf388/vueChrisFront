@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8 login-form-1 center px-0 py-4">
-          <h3 class="text-center text-white mb-4">Rapports</h3>
+          <h3 class="text-center text-white mb-4">Voici les rapports avec le mot clé : {{ getMotCle }}</h3>
           <div id="content">
             <div id="labels" class="justify-content-between px-1">
               <p class="text-white">Date</p>
@@ -33,40 +33,13 @@
                 </li>
               </ul>
             </div>
-            <div class="form-group d-flex justify-content-evenly mt-4">
-              <div id="search">
-                <input
-                  v-model="motcle"
-                  type="search"
-                  name="motCle"
-                  id="motCle"
-                  placeholder="Mot clé"
-                />
-                <i
-                  @click="rechercheMot"
-                  id="iconeRechercher"
-                  class="fas fa-search text-white"
-                ></i>
-              </div>
-              <select
-                name="idRapport"
-                id="idRapport"
-                class="border-white rounded-pill bg-transparent text-white fs-6"
-                @change="getFicheRapport($event)"
+            <router-link
+                id="routeur"
+                type="submit"
+                class="btn btnSubmit d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5 border-2"
+                to="/rapportRedacteurListe"
+                >Annuler</router-link
               >
-                <option value="" class="text-dark">
-                  --Sélectionnez un rapport--
-                </option>
-                <option
-                  class="text-dark"
-                  v-for="item in info"
-                  :key="item"
-                  v-bind:value="item.id"
-                >
-                  {{ item.date }} - {{ item.bilan.substring(0, 20) + "..." }}
-                </option>
-              </select>
-            </div>
           </div>
         </div>
         <div class="col-2"></div>
@@ -77,22 +50,19 @@
 
 <script>
 import axios from "axios";
-
 export default {
-  name: "ListeRapport",
-  props: ["user"],
-
-  data() {
-    return {
+  data(){
+    return{
       info: null,
     };
   },
   methods: {
-    listeRapport: async function () {
+    listeRapportMotCle: async function () {
       //recupérer login via localStorage pour afficher la liste des rapports lié aux visiteurs
 
       const dataJson = await axios
-        .get("http://localhost:3002/gsb/rapport/", {
+        .get("http://localhost:3002/gsb/rapport?champ=bilan&motcle="+this.$store.getters.getMotCleFromStore
+        ,{
           headers: {
             "Content-Type": "application/json",
           },
@@ -104,27 +74,24 @@ export default {
         .then((response) => (this.info = response));
       this.info = dataJson.data;
     },
-    getFicheRapport: function (e) {
-      let value = e.target.value;
-      localStorage.setItem("rapportId", value);
-      this.$router.push("/rapportRedacteurFiche");
-    },
     ficheRapport: function (id) {
       localStorage.setItem("rapportId", id);
       this.$router.push("/rapportRedacteurFiche");
     },
-    rechercheMot: function (){
-      this.$store.dispatch('setMotCle', this.motcle)
-      this.$router.push("/rapportRedacteurMotCle");
-    },      
+  },
+  //"localhost:3002/gsb/rapport?champ=bilan&motcle="+this.$store.getters.getMotCleFromStore
+  computed: {
+    getMotCle: function() {
+        return this.$store.getters.getMotCleFromStore
+    }
   },
   mounted() {
-    this.listeRapport();
-  },
-};
+    this.listeRapportMotCle();
+  }
+}
 </script>
 
-<style scoped>
+<style>
 main {
   width: 100%;
   height: 90vh;
@@ -188,4 +155,3 @@ select {
   border: none;
 }
 </style>
-
