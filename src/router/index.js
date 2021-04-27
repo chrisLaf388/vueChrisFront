@@ -9,6 +9,7 @@ import RapportRedacteurListe from "@/views/RapportRedacteurListe.vue";
 import rapportRedacteurMotCle from "@/views/RapportRedacteurMotCle.vue";
 import RapportsVisiteur from "@/views/RapportVisiteurListe.vue";
 import ListeUtilisateurs from "@/views/UtilisateursListe.vue";
+import ModifierUtilisateur from "@/views/ModifierUtilisateur.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -66,6 +67,11 @@ const routes = [
     path: "/creerUtilisateur",
     name: "CreerUtilisateur",
     component: CreerUtilisateur,
+  },
+  {
+    path: "/modifierUtilisateur",
+    name: "ModifierUtilisateur",
+    component: ModifierUtilisateur,
   },
 ];
 
