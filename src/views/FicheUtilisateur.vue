@@ -113,7 +113,7 @@ export default {
       return this.role;
     },
     rediriger: function () {
-      this.$router.push("/modifierRapport");
+      this.$router.push("/modifierUtilisateur");
     },
     supprimer: async function () {
       if (confirm("Voulez-vous vraiment supprimer cet utilisateur?")) {

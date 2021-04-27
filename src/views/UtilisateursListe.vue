@@ -99,7 +99,7 @@
                       <div class="boutons d_flex justify-content-end py-1 px-0">
                         <button
                           class="mr-2 text-primary bg-white border-0"
-                          @click="ficheModifierVisiteur(utilisateur.login)"
+                          @click="modifier(utilisateur.login, getRoute())"
                         >
                           <i class="fas fa-pen"></i>
                         </button>
@@ -221,8 +221,9 @@ export default {
       localStorage.setItem("route", route);
       this.$router.push("/creerUtilisateur");
     },
-    ficheModifier: function (id) {
-      localStorage.setItem("rapportId", id);
+    modifier: function (id, route) {
+      localStorage.setItem("utilisateurId", id);
+      localStorage.setItem("route", route);
       this.$router.push("/modifierUtilisateur");
     },
     supprimerUtilisateur: async function (id, route) {
