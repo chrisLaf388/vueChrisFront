@@ -13,14 +13,13 @@
                 @click="listeUtilisateurs('visiteur')"
               >
                 <p class="m-0 d-flex align-items-center">Visiteurs</p>
-                <button class="btn">
+                <button class="btn" @click="createUtilisateur('visiteur')">
                   <i
                     class="fas fa-plus"
                     :class="{
                       active: visiteurActive,
                       inactive: !visiteurActive,
                     }"
-                    @click="createUtilisateur('visiteur')"
                   ></i>
                 </button>
               </div>
@@ -36,11 +35,13 @@
                 <p class="m-0 d-flex align-items-center">
                   Rédacteurs/Chercheurs
                 </p>
-                <button class="btn">
+                <button
+                  class="btn"
+                  @click="createUtilisateur('redacteurchercheur')"
+                >
                   <i
                     class="fas fa-plus"
                     :class="{ active: rcActive, inactive: !rcActive }"
-                    @click="createUtilisateur('redacteurchercheur')"
                   ></i>
                 </button>
               </div>
@@ -54,11 +55,10 @@
                 @click="listeUtilisateurs('rh')"
               >
                 <p class="m-0 d-flex align-items-center">Ressources humaines</p>
-                <button class="btn">
+                <button class="btn" @click="createUtilisateur('rh')">
                   <i
                     class="fas fa-plus"
                     :class="{ active: rhActive, inactive: !rhActive }"
-                    @click="createUtilisateur('rh')"
                   ></i>
                 </button>
               </div>
@@ -71,6 +71,27 @@
             >
               <p class="text-white mb-0">Nom prénom</p>
               <p class="text-white mb-0">Date d'embauche</p>
+              <select
+                name="idRapport"
+                id="idRapport"
+                class="border-white rounded-pill bg-transparent text-white fs-6"
+                @change="getFicheUtilisateur($event, getRoute())"
+              >
+                <option value="" class="text-dark">
+                  --Sélectionnez un <span v-if="visiteurActive">visiteur</span
+                  ><span v-if="rcActive">rédacteur/chercheur</span
+                  ><span v-if="rhActive">RH</span>--
+                </option>
+                <option
+                  class="text-dark"
+                  v-for="utilisateur in utilisateurs"
+                  :key="utilisateur"
+                  v-bind:value="utilisateur.login"
+                >
+                  {{ utilisateur.dateEmbauche }} - {{ utilisateur.nom }}
+                  {{ utilisateur.prenom }}
+                </option>
+              </select>
             </div>
             <div>
               <ul id="visiteurs" class="p-0 m-0">
@@ -117,26 +138,6 @@
                 </li>
               </ul>
             </div>
-            <div class="form-group d-flex justify-content-evenly mt-4">
-              <select
-                name="idRapport"
-                id="idRapport"
-                class="border-white rounded-pill bg-transparent text-white fs-6"
-                @change="getFicheUtilisateur($event)"
-              >
-                <option value="" class="text-dark">
-                  --Sélectionnez un utilisateur--
-                </option>
-                <option
-                  class="text-dark"
-                  v-for="visiteur in info"
-                  :key="visiteur"
-                  v-bind:value="visiteur.login"
-                >
-                  {{ visiteur.nom }} - {{ visiteur.prenom }}
-                </option>
-              </select>
-            </div>
           </div>
         </div>
       </div>
@@ -149,8 +150,6 @@ import axios from "axios";
 
 export default {
   name: "ListeUtilisateurs",
-  props: ["user"],
-
   data() {
     return {
       utilisateurs: null,
@@ -235,10 +234,11 @@ export default {
         window.location.reload();
       }
     },
-    getFicheRapport: function (e) {
+    getFicheUtilisateur: function (e, route) {
       let value = e.target.value;
       localStorage.setItem("utilisateurId", value);
-      this.$router.push("/ficheRapportVuParVisiteur");
+      localStorage.setItem("route", route);
+      this.$router.push("/ficheUtilisateur");
     },
   },
   mounted() {
@@ -269,7 +269,7 @@ main {
 
 #labels {
   font-weight: bold;
-  width: 52%;
+  width: 100%;
 }
 
 li {
