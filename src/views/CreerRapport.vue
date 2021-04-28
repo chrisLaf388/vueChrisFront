@@ -67,7 +67,7 @@ export default {
   methods: {
     creerRapportRequest: async function () {
       let res = await axios(
-        "http://localhost:3002/gsb/visiteur/" + this.user + "/rapport",
+        "http://localhost:3002/gsb/visiteur/" + this.getLogin + "/rapport",
         {
           method: "POST",
           withCredentials: true,
@@ -83,6 +83,11 @@ export default {
       let data = res.data;
       localStorage.setItem("rapportId", data.id);
       this.$router.push("/ficheRapportVuParVisiteur");
+    },
+  },
+  computed: {
+    getLogin: function () {
+      return this.$store.getters.getLoginFromStore;
     },
   },
 };
