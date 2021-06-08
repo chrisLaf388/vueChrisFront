@@ -140,7 +140,7 @@ export default {
             dateNaissance: this.dateNaissance,
           },
         }
-      ).then((response) => {
+      ).then((response) => { 
         let data = response.data;
         localStorage.setItem("utilisateurId", data.login);
         this.$router.push("/ficheUtilisateur");
