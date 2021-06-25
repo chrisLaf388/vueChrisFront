@@ -92,7 +92,7 @@ export default {
       //recupérer login via localStorage pour afficher la liste des rapports lié aux visiteurs
 
       const dataJson = await axios
-        .get("http://localhost:3002/gsb/rapport/", {
+        .get("https://localhost/gsb/rapport/", {
           headers: {
             "Content-Type": "application/json",
           },

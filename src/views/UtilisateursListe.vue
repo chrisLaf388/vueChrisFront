@@ -197,7 +197,7 @@ export default {
     listeUtilisateurs: async function (route) {
       this.getActive(route);
       await axios
-        .get("http://localhost:3002/gsb/" + route, {
+        .get("https://localhost/gsb/" + route, {
           headers: {
             "Content-Type": "application/json",
           },

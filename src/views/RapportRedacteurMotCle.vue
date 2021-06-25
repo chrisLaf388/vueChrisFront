@@ -61,7 +61,7 @@ export default {
       //recupérer login via localStorage pour afficher la liste des rapports lié aux visiteurs
 
       const dataJson = await axios
-        .get("http://localhost:3002/gsb/rapport?champ=bilan&motcle="+this.$store.getters.getMotCleFromStore
+        .get("https://localhost/gsb/rapport?champ=bilan&motcle="+this.$store.getters.getMotCleFromStore
         ,{
           headers: {
             "Content-Type": "application/json",

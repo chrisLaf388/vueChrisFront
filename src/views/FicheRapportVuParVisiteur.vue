@@ -56,7 +56,7 @@ export default {
     afficherFiche: async function () {
       await axios
         .get(
-          "http://localhost:3002/gsb/rapport/" +
+          "https://localhost/gsb/rapport/" +
             localStorage.getItem("rapportId"),
           {
             withCredentials: true,
@@ -76,7 +76,7 @@ export default {
     },
     supprimer: async function (id) {
       if (confirm("Voulez-vous vraiment supprimer ce rapport?")) {
-        await axios("http://localhost:3002/gsb/rapport/" + id, {
+        await axios("https://localhost/gsb/rapport/" + id, {
           method: "DELETE",
           withCredentials: true,
         });

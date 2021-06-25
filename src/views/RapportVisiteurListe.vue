@@ -98,7 +98,7 @@ export default {
 
       const dataJson = await axios
         .get(
-          "http://localhost:3002/gsb/visiteur/" + this.getLogin + "/rapport",
+          "https://localhost/gsb/visiteur/" + this.getLogin + "/rapport",
           {
             headers: {
               "Content-Type": "application/json",

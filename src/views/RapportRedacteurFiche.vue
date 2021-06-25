@@ -47,7 +47,7 @@ export default {
     afficherFiche: async function () {
       await axios
         .get(
-          "http://localhost:3002/gsb/rapport/" +
+          "https://localhost/gsb/rapport/" +
             localStorage.getItem("rapportId"),
           {
             withCredentials: true,

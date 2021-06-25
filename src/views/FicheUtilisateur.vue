@@ -80,7 +80,7 @@ export default {
     afficherFiche: async function () {
       await axios
         .get(
-          "http://localhost:3002/gsb/" +
+          "https://localhost/gsb/" +
             localStorage.getItem("route") +
             "/" +
             localStorage.getItem("utilisateurId"),
@@ -118,7 +118,7 @@ export default {
     supprimer: async function () {
       if (confirm("Voulez-vous vraiment supprimer cet utilisateur?")) {
         await axios(
-          "http://localhost:3002/gsb/" +
+          "https://localhost/gsb/" +
             localStorage.getItem("route") +
             "/" +
             localStorage.getItem("utilisateurId"),

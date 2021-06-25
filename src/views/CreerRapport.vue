@@ -67,7 +67,7 @@ export default {
   methods: {
     creerRapportRequest: async function () {
       let res = await axios(
-        "http://localhost:3002/gsb/visiteur/" + this.getLogin + "/rapport",
+        "https://localhostgsb/visiteur/" + this.getLogin + "/rapport",
         {
           method: "POST",
           withCredentials: true,
